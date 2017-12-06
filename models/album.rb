@@ -40,6 +40,10 @@ class Album
     end
   end
 
+  def artist()
+    return Artist.find_artist(@artist_id)
+  end
+
 
   private
   def insert()

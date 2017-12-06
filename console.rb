@@ -33,11 +33,16 @@ album1.save()
 album1.genre = "Pop"
 album1.save()
 
+puts "Artist.find_all()"
 artists_list = Artist.find_all()
 p artists_list
 
 # albums_list = Album.find_all()
 # p albums_list
 
+puts "artist1.find_all_albums()"
 artist1_albums_list = artist1.find_all_albums()
 p artist1_albums_list
+
+puts "album1.artist()"
+p album1.artist()

@@ -31,11 +31,13 @@ class Artist
     return SqlRunner.run(sql).map{|artist| Artist.new(artist)}
   end
 
+  def self.find_artist(artist_id)
+    sql = "SELECT id, name FROM artists WHERE id = $1"
+    return Artist.new(SqlRunner.run(sql, [artist_id]).first())
+  end
 
 
   # instance methods
-
-
   def save()
     if @id
       update()
@@ -58,7 +60,7 @@ class Artist
   end
 
   def update()
-    sql     = "UPDATE artists SET (name) = ($1) WHERE id = $2"
+    sql     = "UPDATE artists SET name = $1 WHERE id = $2"
     values  = [@name, @id]
     SqlRunner.run(sql, values)
   end

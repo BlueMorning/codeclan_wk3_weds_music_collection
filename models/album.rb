@@ -20,6 +20,13 @@ class Album
     SqlRunner.run(sql)
   end
 
+  #Delete all the album by artist id
+  def self.delete_by_artist_id(artist_id)
+    sql    = "DELETE FROM albums WHERE artist_id = $1"
+    values = [artist_id]
+    SqlRunner.run(sql, values)
+  end
+
   #Get all the albums
   def self.find_all()
     sql = "SELECT id, title, genre, artist_id FROM albums"

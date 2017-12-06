@@ -17,13 +17,15 @@ class Artist
 
   #Delete all the artists
   def self.delete_all()
+    Album.delete_all()
     sql = "DELETE FROM artists"
     SqlRunner.run(sql)
   end
 
   #Delete one artist by id
   def self.delete_one(id)
-    sql = "DELETE FROM artists WHERE id = $1"
+    Album.delete_by_artist_id(id)
+    sql    = "DELETE FROM artists WHERE id = $1"
     values = [id]
     SqlRunner.run(sql, values)
   end
@@ -36,8 +38,9 @@ class Artist
 
   #Get an artist from his/her id
   def self.find_artist(artist_id)
-    sql = "SELECT id, name FROM artists WHERE id = $1"
-    return Artist.new(SqlRunner.run(sql, [artist_id]).first())
+    sql    = "SELECT id, name FROM artists WHERE id = $1"
+    result = SqlRunner.run(sql, [artist_id]).first()
+    return result != nil ? Artist.new(result) : nil
   end
 
 

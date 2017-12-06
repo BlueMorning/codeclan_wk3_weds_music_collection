@@ -56,3 +56,8 @@ p album1.artist()
 
 puts "Album.find_album_by_title('Tr')"
 p Album.find_album_by_title("of")
+
+puts "Artist.delete_by_artist_id(artist1.id)"
+Artist.delete_one(artist1.id)
+
+p Artist.find_artist(artist1.id)

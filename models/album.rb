@@ -14,24 +14,36 @@ class Album
   end
 
   # class methods
+  #Delete all the albums
   def self.delete_all()
     sql = "DELETE FROM albums"
     SqlRunner.run(sql)
   end
 
+  #Get all the albums
   def self.find_all()
     sql = "SELECT id, title, genre, artist_id FROM albums"
     return SqlRunner.run(sql).map{|album| Album.new(album)}
   end
 
+  #Find the all the artist's albums
   def self.find_albums_by_artist(artist_id)
     sql = "SELECT id, title, genre, artist_id FROM albums WHERE artist_id = $1"
     values = [artist_id]
     return SqlRunner.run(sql, values).map{|album| Album.new(album)}
   end
 
-  # instance methods
+  #Find all the album from title
+  def self.find_album_by_title(title)
+    sql    = "SELECT id, title, genre, artist_id FROM albums WHERE title LIKE('%' || $1 || '%')"
+    values = [title]
+    return SqlRunner.run(sql, values).map {|album| Album.new(album)}
+  end
 
+
+
+  # instance methods
+  # Save an artist, the method manages whether an insert or an update is required
   def save() # this means that you have no ambiguity, and no need to know whether the object you are dealing with is new or already exists in the database.
     if @id
       update()
@@ -40,6 +52,7 @@ class Album
     end
   end
 
+ #Get the album's artist
   def artist()
     return Artist.find_artist(@artist_id)
   end

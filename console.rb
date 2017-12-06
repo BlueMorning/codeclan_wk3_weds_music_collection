@@ -33,6 +33,13 @@ album1.save()
 album1.genre = "Pop"
 album1.save()
 
+album2 = Album.new({
+  'title' => 'The song of innocence',
+  'genre' => 'Rock',
+  'artist_id' => artist1.id
+  })
+album2.save()
+
 puts "Artist.find_all()"
 artists_list = Artist.find_all()
 p artists_list
@@ -46,3 +53,6 @@ p artist1_albums_list
 
 puts "album1.artist()"
 p album1.artist()
+
+puts "Album.find_album_by_title('Tr')"
+p Album.find_album_by_title("of")
